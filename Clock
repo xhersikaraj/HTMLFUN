@@ -1,0 +1,77 @@
+<!doctype html>  
+<html>
+  <head>
+    <title>Clock</title>
+  </head>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+    }
+    div{
+      position:absolute;
+      width:600px;
+      height:100px;
+      margin:-50px -300px;
+      text-align:center;
+      top:50%;
+      left:50%;
+      color:#fff;
+      font-size:100px;
+      font-family:sans-serif;
+      text-shadow:3px 3px 5px gray;
+    }
+    section{
+      display:inline-block;
+      position:relative;
+      width:100px;
+      margin:1px;
+      box-shadow:5px 5px 5px rgba(0,0,0,0.5);
+      background-image: -webkit-linear-gradient(rgba(255, 255, 255, .2) 90%, transparent 10%, transparent);
+      background-size: 1px 10px;
+    }
+  </style>
+  <script>
+    window.onload = function(){
+      var numbers = true;
+      
+      var checkZeros = function(time){
+        if (time < 10){
+          time = "0" + time;
+        }
+        return time;
+      };
+      window.animate = function(){
+        var date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        var string = '';
+		/* */
+		var ampm = hours >= 12 ? ' pm' : ' am';
+		hours = hours % 12;		
+		//document.getElementsByTagName("body")[0].style.backgroundColor = "rgba(" + hours * 10 + ", " + minutes * 4 + ", " + seconds*4 + ", 0.4)";
+		if((minutes >= 25 && minutes <= 29) || (minutes >= 55 && minutes <= 59)){ //
+			document.getElementsByTagName("body")[0].style.backgroundColor = "#00FF00";
+		} else {
+			document.getElementsByTagName("body")[0].style.backgroundColor = "#FF0000";
+		}
+        string = "<span>" + checkZeros(hours) + "</span>:<span>" + checkZeros(minutes) + "</span>:<span>" + checkZeros(seconds) + ampm + "</span>";
+        /*if(numbers){
+        }else{
+          string = "<section style='height:" + hours * 10 + "px;'></section><section style='height:" + minutes * 5 + "px;'></section><section style='height:" + seconds * 5 + "px;'></section>";
+        }*/
+        document.getElementsByTagName("div")[0].innerHTML = string;
+        setTimeout(window.animate, 50);
+      };
+      /*window.onclick = function(){
+        numbers = numbers ? false : true;
+      };*/
+      window.animate();
+    };
+    
+  </script>
+  <body>
+    <div></div>
+  </body>
+</html>
